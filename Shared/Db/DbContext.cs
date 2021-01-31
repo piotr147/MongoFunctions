@@ -1,11 +1,11 @@
 ﻿using MongoDB.Driver;
-using MongoFunctions.Helpers;
+using Shared.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace MongoFunctions.Db
+namespace Shared.Db
 {
     public class DbContext<T> : IDbContext<T>
     {
@@ -24,5 +24,14 @@ namespace MongoFunctions.Db
 
         public async Task<List<T>> GetAllAsync() =>
             (await _collection.FindAsync(_ => true)).ToList();
+
+        public async Task<List<T>> GetAllAsync(Expression<Func<T, bool>> pred) =>
+            (await _collection.FindAsync(pred)).ToList();
+
+        public async Task InsertOneAsync(T item) =>
+            await _collection.InsertOneAsync(item);
+
+        public async Task InsertManyAsync(IEnumerable<T> items) =>
+            await _collection.InsertManyAsync(items);
     }
 }

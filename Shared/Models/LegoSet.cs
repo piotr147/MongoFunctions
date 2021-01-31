@@ -1,7 +1,6 @@
-﻿using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
+﻿using MongoDB.Bson.Serialization.Attributes;
 
-namespace MongoFunctions.Models
+namespace Shared.Models
 {
     [BsonIgnoreExtraElements]
     public class LegoSet

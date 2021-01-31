@@ -1,4 +1,4 @@
-﻿namespace MongoFunctions.Helpers
+﻿namespace Shared.Helpers
 {
     public interface IConfigurationReader
     {

@@ -4,12 +4,12 @@ using Microsoft.Azure.WebJobs.Extensions.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using MongoFunctions.Db;
-using MongoFunctions.Models;
 using System.Net.Http;
 using System.Net;
 using System.Text;
 using System;
+using Shared.Db;
+using Shared.Models;
 
 namespace MongoFunctions.Functions
 {

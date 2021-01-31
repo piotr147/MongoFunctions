@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MongoFunctions", "MongoFunctions\MongoFunctions.csproj", "{123058A0-8BFD-4BA2-91CE-C3079B9BAE73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MongoFunctions", "MongoFunctions\MongoFunctions.csproj", "{123058A0-8BFD-4BA2-91CE-C3079B9BAE73}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsvImporter", "CsvImporter\CsvImporter.csproj", "{3FED6F70-F69C-4228-8C69-1A2E713E7604}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{FC38E790-3B91-4FBD-AEB2-8FE13C7F51F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{123058A0-8BFD-4BA2-91CE-C3079B9BAE73}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{123058A0-8BFD-4BA2-91CE-C3079B9BAE73}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{123058A0-8BFD-4BA2-91CE-C3079B9BAE73}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FED6F70-F69C-4228-8C69-1A2E713E7604}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FED6F70-F69C-4228-8C69-1A2E713E7604}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FED6F70-F69C-4228-8C69-1A2E713E7604}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FED6F70-F69C-4228-8C69-1A2E713E7604}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC38E790-3B91-4FBD-AEB2-8FE13C7F51F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC38E790-3B91-4FBD-AEB2-8FE13C7F51F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC38E790-3B91-4FBD-AEB2-8FE13C7F51F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC38E790-3B91-4FBD-AEB2-8FE13C7F51F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

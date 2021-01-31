@@ -1,15 +1,14 @@
 ﻿using Shared.Helpers;
-using System;
+using System.Configuration;
 
-namespace MongoFunctions.Helpers
+namespace CsvImporter.Helpers
 {
     public class ConfigurationReader : IConfigurationReader
     {
         public string GetConnectionString() =>
-            Environment.GetEnvironmentVariable("ConnectionString");
-            
+            ConfigurationManager.AppSettings["ConnectionString"];
 
         public string GetDatabaseName() =>
-            Environment.GetEnvironmentVariable("DatabaseName");
+            ConfigurationManager.AppSettings["DatabaseName"];
     }
 }
