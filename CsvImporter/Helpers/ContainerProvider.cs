@@ -14,7 +14,8 @@ namespace CsvImporter.Helpers
             ContainerBuilder containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterType<ConfigurationReader>().As<IConfigurationReader>().SingleInstance();
             containerBuilder.RegisterType<LegoSetCsvImporter>().As<ILegoSetCsvImporter>().SingleInstance();
-            //containerBuilder.RegisterType<DbContext<LegoSet>>().As<IDbContext<LegoSet>>().SingleInstance();
+            containerBuilder.RegisterType<SetOwnershipCsvImporter>().As<ISetOwnershipCsvImporter>().SingleInstance();
+            containerBuilder.RegisterType<SetOwnershipCsvImporter>().As<ISetOwnershipCsvImporter>().SingleInstance();
             containerBuilder.RegisterGeneric(typeof(DbContext<>)).As(typeof(IDbContext<>)).InstancePerDependency();
 
             Container = containerBuilder.Build();

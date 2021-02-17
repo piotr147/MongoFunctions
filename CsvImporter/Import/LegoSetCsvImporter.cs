@@ -1,12 +1,14 @@
 ﻿using Shared.Db;
 using Shared.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CsvImporter.Import
 {
-    public class LegoSetCsvImporter : ILegoSetCsvImporter
+    public class LegoSetCsvImporter : BaseCsvImporter, ILegoSetCsvImporter
     {
         private IDbContext<LegoSet> _dbContext;
 
@@ -18,7 +20,10 @@ namespace CsvImporter.Import
         public async Task ImportSets(string path)
         {
             IEnumerable<LegoSet> sets = await ReadSets(path);
+            Console.WriteLine($"Count: {sets.ToArray().Length}");
+
             await _dbContext.InsertManyAsync(sets);
+
         }
 
         private async static Task<IEnumerable<LegoSet>> ReadSets(string path)
@@ -30,6 +35,7 @@ namespace CsvImporter.Import
             while (line != null)
             {
                 sets.Add(ReadSetFromLine(line));
+                Console.WriteLine($"Added {sets[0]}");
 
                 line = await reader.ReadLineAsync();
             }
@@ -48,13 +54,9 @@ namespace CsvImporter.Import
                 Series = GetValueOrNull(values, 2),
                 Name = GetValueOrNull(values, 3),
                 CatalogPrice = GetValueOrNull(values, 4),
-                Elements = GetValueOrNull(values, 5)
+                Elements = GetValueOrNull(values, 5),
+                IsRetired = GetBoolValueOrFalse(values, 6)
             };
         }
-
-        private static string GetValueOrNull(string[] values, int index) =>
-            values.Length > index
-                ? values[index]
-                : null;
     }
 }
