@@ -14,19 +14,8 @@ namespace CsvImporter
 
         static async Task Main(string[] args)
         {
-            AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler;
-            using ILifetimeScope scope = ContainerProvider.Container.BeginLifetimeScope();
-            _legoSetCsvImporter = ContainerProvider.Container.Resolve<ILegoSetCsvImporter>();
-            _setOwnershipCsvImporter = ContainerProvider.Container.Resolve<ISetOwnershipCsvImporter>();
-
-            string setsFile = string.Empty, ownershipsFile = string.Empty;
-
-            Parser.Default.ParseArguments<CmdOptions>(args)
-                   .WithParsed(o =>
-                   {
-                       setsFile = o.SetsFile;
-                       ownershipsFile = o.OwnershipsFile;
-                   });
+            Initialize();
+            ReadArgs(args, out string setsFile, out string ownershipsFile);
 
             try
             {
@@ -36,6 +25,29 @@ namespace CsvImporter
             {
                 Console.WriteLine(e.Message);
             }
+        }
+
+        private static void Initialize()
+        {
+            AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler;
+            using ILifetimeScope scope = ContainerProvider.Container.BeginLifetimeScope();
+            _legoSetCsvImporter = ContainerProvider.Container.Resolve<ILegoSetCsvImporter>();
+            _setOwnershipCsvImporter = ContainerProvider.Container.Resolve<ISetOwnershipCsvImporter>();
+        }
+
+        private static void ReadArgs(string[] args, out string setsFile, out string ownershipsFile)
+        {
+            string s1 = string.Empty, s2 = string.Empty;
+
+            Parser.Default.ParseArguments<CmdOptions>(args)
+                   .WithParsed(o =>
+                   {
+                       s1 = o.SetsFile;
+                       s2 = o.OwnershipsFile;
+                   });
+
+            setsFile = s1;
+            ownershipsFile = s2;
         }
 
         private static async Task TryImport(string setsFile, string ownershipsFile)
@@ -50,9 +62,6 @@ namespace CsvImporter
                 await _setOwnershipCsvImporter.ImportSets(ownershipsFile);
             }
         }
-
-        private static string GetPathFromArgs(string[] args) =>
-            args[0];
 
         static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs e)
         {
