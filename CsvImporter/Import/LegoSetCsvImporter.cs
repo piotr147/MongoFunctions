@@ -20,10 +20,8 @@ namespace CsvImporter.Import
         public async Task ImportSets(string path)
         {
             IEnumerable<LegoSet> sets = await ReadSets(path);
-            Console.WriteLine($"Count: {sets.ToArray().Length}");
-
-            await _dbContext.InsertManyAsync(sets);
-
+            Console.WriteLine($"Number of sets to insert: {sets.ToArray().Length}");
+            await UpsertSets(sets);
         }
 
         private async static Task<IEnumerable<LegoSet>> ReadSets(string path)
@@ -35,7 +33,6 @@ namespace CsvImporter.Import
             while (line != null)
             {
                 sets.Add(ReadSetFromLine(line));
-                Console.WriteLine($"Added {sets[0]}");
 
                 line = await reader.ReadLineAsync();
             }
@@ -57,6 +54,14 @@ namespace CsvImporter.Import
                 Elements = GetValueOrNull(values, 5),
                 IsRetired = GetBoolValueOrFalse(values, 6)
             };
+        }
+
+        private async Task UpsertSets(IEnumerable<LegoSet> sets)
+        {
+            foreach (var set in sets)
+            {
+                await _dbContext.UpsertOneAsync(s => s.Number == set.Number, set);
+            }
         }
     }
 }

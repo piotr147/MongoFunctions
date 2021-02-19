@@ -16,5 +16,7 @@ namespace Shared.Db
         public  Task InsertOneAsync(T item);
 
         public  Task InsertManyAsync(IEnumerable<T> items);
+
+        public Task UpsertOneAsync(Expression<Func<T, bool>> pred, T item);
     }
 }

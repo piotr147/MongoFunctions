@@ -33,5 +33,11 @@ namespace Shared.Db
 
         public async Task InsertManyAsync(IEnumerable<T> items) =>
             await _collection.InsertManyAsync(items);
+
+        public async Task UpsertOneAsync(Expression<Func<T, bool>> pred, T item)
+        {
+            await _collection.DeleteOneAsync(pred);
+            await _collection.InsertOneAsync(item);
+        }
     }
 }

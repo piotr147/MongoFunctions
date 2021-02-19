@@ -22,7 +22,7 @@ namespace CsvImporter.Import
         public async Task ImportSets(string path)
         {
             IEnumerable<SetOwnership> ownerships = await ReadSets(path);
-            Console.WriteLine($"Count: {ownerships.ToArray().Length}");
+            Console.WriteLine($"Number of ownerships to insert: {ownerships.ToArray().Length}");
             await _dbContext.InsertManyAsync(ownerships);
         }
 
@@ -50,7 +50,7 @@ namespace CsvImporter.Import
             {
                 UserMail = GetValueOrNull(values, 0),
                 SetNumber = GetValueOrNull(values, 1),
-                PurchaseDate = DateTime.ParseExact(GetValueOrNull(values, 2), "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                PurchaseDate = DateTime.ParseExact(GetValueOrNull(values, 2), "dd.MM.yyyy", CultureInfo.InvariantCulture),
                 PricePln = GetIntValueOrZero(values, 3),
                 PricePoints = GetIntValueOrZero(values, 4),
                 WasBuilt = GetBoolValueOrFalse(values, 5),

@@ -24,7 +24,33 @@ namespace MongoFunctions.Functions
         }
 
         [FunctionName("GetSet")]
-        public async Task<HttpResponseMessage> Run(
+        public async Task<HttpResponseMessage> GetSet(
+            [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req,
+            ILogger log)
+        {
+            log.LogInformation("C# HTTP trigger function processed a request.");
+
+            Func<LegoSet, bool> filters = GetFiltersFromQuery(req.Query);
+
+            try
+            {
+                LegoSet set = await _dbContext.GetFirstAsync(s => filters(s));
+                string json = JsonConvert.SerializeObject(set, Formatting.Indented);
+
+                return new HttpResponseMessage(HttpStatusCode.OK)
+                {
+                    Content = new StringContent(json, Encoding.UTF8, "application/json")
+                };
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw;
+            }
+        }
+
+        [FunctionName("GetSets")]
+        public async Task<HttpResponseMessage> GetSets(
             [HttpTrigger(AuthorizationLevel.Function, "get", Route = null)] HttpRequest req,
             ILogger log)
         {
@@ -53,10 +79,6 @@ namespace MongoFunctions.Functions
         {
             Func<LegoSet, bool> filters = s => true;
 
-            filters = string.IsNullOrWhiteSpace(query["number"])
-                ? filters
-                : s => filters(s) && s.Number == query["number"];
-
             filters = string.IsNullOrWhiteSpace(query["series"])
                 ? filters
                 : s => filters(s) && s.Number == query["series"];
@@ -64,10 +86,6 @@ namespace MongoFunctions.Functions
             filters = string.IsNullOrWhiteSpace(query["year"])
                 ? filters
                 : s => filters(s) && s.Number == query["year"];
-
-            filters = string.IsNullOrWhiteSpace(query["name"])
-                ? filters
-                : s => filters(s) && s.Number == query["name"];
 
             return s => filters(s);
         }
