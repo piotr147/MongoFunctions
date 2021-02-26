@@ -1,9 +1,11 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
+using Shared.Helpers;
 
 namespace Shared.Models
 {
     [BsonIgnoreExtraElements]
-    public class LegoSet
+    [BsonCollection("LegoSet")]
+    public class LegoSet : Document
     {
         public string Number { get; set; }
 

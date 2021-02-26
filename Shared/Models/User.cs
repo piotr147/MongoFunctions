@@ -1,9 +1,11 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
+using Shared.Helpers;
 
 namespace Shared.Models
 {
     [BsonIgnoreExtraElements]
-    public class User
+    [BsonCollection("Users")]
+    public class User : Document
     {
         public string Name { get; set; }
         

@@ -1,10 +1,12 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
+using Shared.Helpers;
 using System;
 
 namespace Shared.Models
 {
     [BsonIgnoreExtraElements]
-    public class SetOwnership
+    [BsonCollection("SetOwnerships")]
+    public class SetOwnership : Document
     {
         public string UserMail { get; set; }
 

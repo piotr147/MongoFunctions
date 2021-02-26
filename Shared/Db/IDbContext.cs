@@ -1,22 +1,27 @@
-﻿using System;
+﻿using MongoDB.Driver;
+using Shared.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Shared.Db
 {
-    public interface IDbContext<T>
+    public interface IDbContext<TDocument>
+        where TDocument : IDocument
     {
-        public Task<T> GetFirstAsync(Expression<Func<T, bool>> pred);
+        public Task<List<TDocument>> FilterBy(Expression<Func<TDocument, bool>> pred);
 
-        public Task<List<T>> GetAllAsync();
+        public Task<TDocument> GetFirstAsync(Expression<Func<TDocument, bool>> pred);
 
-        public  Task<List<T>> GetAllAsync(Expression<Func<T, bool>> pred);
+        public Task<List<TDocument>> GetAllAsync();
 
-        public  Task InsertOneAsync(T item);
+        public  Task<List<TDocument>> GetAllAsync(Expression<Func<TDocument, bool>> pred);
 
-        public  Task InsertManyAsync(IEnumerable<T> items);
+        public  Task InsertOneAsync(TDocument item);
 
-        public Task UpsertOneAsync(Expression<Func<T, bool>> pred, T item);
+        public  Task InsertManyAsync(IEnumerable<TDocument> items);
+
+        public Task UpsertOneAsync(Expression<Func<TDocument, bool>> pred, TDocument item);
     }
 }
