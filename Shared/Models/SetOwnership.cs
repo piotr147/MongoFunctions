@@ -18,6 +18,8 @@ namespace Shared.Models
 
         public int PricePoints { get; set; }
 
+        public int TotalPrice { get; set; }
+
         public bool WasBuilt { get; set; }
 
         public bool IsForSale { get; set; }

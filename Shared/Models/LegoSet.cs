@@ -4,7 +4,7 @@ using Shared.Helpers;
 namespace Shared.Models
 {
     [BsonIgnoreExtraElements]
-    [BsonCollection("LegoSet")]
+    [BsonCollection("LegoSets")]
     public class LegoSet : Document
     {
         public string Number { get; set; }

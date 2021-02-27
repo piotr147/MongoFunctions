@@ -53,6 +53,7 @@ namespace CsvImporter.Import
                 PurchaseDate = DateTime.ParseExact(GetValueOrNull(values, 2), "dd.MM.yyyy", CultureInfo.InvariantCulture),
                 PricePln = GetIntValueOrZero(values, 3),
                 PricePoints = GetIntValueOrZero(values, 4),
+                TotalPrice = GetIntValueOrZero(values, 3) + GetIntValueOrZero(values, 4),
                 WasBuilt = GetBoolValueOrFalse(values, 5),
                 IsForSale = GetBoolValueOrFalse(values, 6)
             };

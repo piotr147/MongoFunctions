@@ -11,7 +11,7 @@ using System;
 using Shared.Db;
 using Shared.Models;
 using System.Linq.Expressions;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace MongoFunctions.Functions
 {
@@ -73,8 +73,8 @@ namespace MongoFunctions.Functions
 
         private async Task<HttpResponseMessage> TryGetSets(Expression<Func<LegoSet, bool>> filters)
         {
-            LegoSet set = await _dbContext.GetFirstAsync(filters);
-            string json = JsonConvert.SerializeObject(set, Formatting.Indented);
+            List<LegoSet> sets = await _dbContext.FilterBy(filters);
+            string json = JsonConvert.SerializeObject(sets, Formatting.Indented);
 
             return new HttpResponseMessage(HttpStatusCode.OK)
             {

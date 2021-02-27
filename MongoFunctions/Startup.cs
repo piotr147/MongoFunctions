@@ -15,6 +15,7 @@ namespace MongoFunctions
         {
             builder.Services.AddSingleton<IConfigurationReader>(new ConfigurationReader());
             builder.Services.AddScoped<IDbContext<LegoSet>, DbContext<LegoSet>>();
+            builder.Services.AddScoped<IDbContext<SetOwnership>, DbContext<SetOwnership>>();
         }
     }
 }
